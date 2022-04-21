@@ -26,7 +26,7 @@ public class Calculator {
                     case '+':
                         System.out.println("Button = " + e.getActionCommand());
                         op = '+';
-                        if(operation==true){
+                        if(operation==true && value2 != 0 ){
                             jtfield.setText(Double.toString(result));
                             System.out.println("Result = " + result);
                             value1 = result;
@@ -40,7 +40,7 @@ public class Calculator {
                     case '-':
                         System.out.println("Button = " + e.getActionCommand());
                         op = '-';
-                        if(operation==true){
+                        if(operation==true && value2 != 0 ){
                             jtfield.setText(Double.toString(result));
                             System.out.println("Result = " + result);
                             value1 = result;
@@ -54,7 +54,7 @@ public class Calculator {
                     case '*':
                         System.out.println("Button = " + e.getActionCommand());
                         op = '*';
-                        if(operation==true){
+                        if(operation==true && value2 != 0 ){
                             jtfield.setText(Double.toString(result));
                             System.out.println("Result = " + result);
                             value1 = result;
@@ -68,7 +68,7 @@ public class Calculator {
                     case '/':
                         System.out.println("Button = " + e.getActionCommand());
                         op = '/';
-                        if(operation==true){
+                        if(operation==true && value2 != 0 ){
                             jtfield.setText(Double.toString(result));
                             System.out.println("Result = " + result);
                             value1 = result;
@@ -80,34 +80,76 @@ public class Calculator {
                         operation = true;
                         break;
                     case '=':
+                        System.out.println("value1 = " + value1);
+                        System.out.println("value2 = " + value2);
                         operation = false;
                         if(op == '+'){
-                            //result = value1 + value2;
-                            value1 = result;
+                            if(value2 == 0) {
+                                value2 = value1;
+                                result = value1 + value2;
+                                value1 = result;
+                            }
+                            else {
+                                result = value1 + value2;
+                                value1 = result;
+                            }
+                            str1 = "";
                             str2 = "";
                             jtfield.setText(Double.toString(result));
                             System.out.println("Result = " + result);
                             break;
                         }
                         else if (op == '-'){
-                            result = value1 - value2;
-                            value1 = result;
+                            if(value2 == 0) {
+                                value2 = value1;
+                                result = value1 - value2;
+                                value1 = result;
+                            }
+                            else {
+                                result = value1 - value2;
+                                value1 = result;
+                            }
+                            str1 = "";
                             str2 = "";
                             jtfield.setText(Double.toString(result));
                             System.out.println("Result = " + result);
                             break;
                         }
                         else if (op == '*'){
-                            result = value1 * value2;
-                            value1 = result;
+                            if(value2 == 0) {
+                                value2 = value1;
+                                result = value1 * value2;
+                                value1 = result;
+                            }
+                            else {
+                                result = value1 * value2;
+                                value1 = result;
+                            }
+                            str1 = "";
                             str2 = "";
                             jtfield.setText(Double.toString(result));
                             System.out.println("Result = " + result);
                             break;
                         }
-                        else{
-                            result = value1 / value2;
-                            value1 = result;
+                        else if (op == '/'){
+                            if(value2 == 0) {
+                                value2 = value1;
+                                result = value1 / value2;
+                                value1 = result;
+                            }
+                            else {
+                                result = value1 / value2;
+                                value1 = result;
+                            }
+                            str1 = "";
+                            str2 = "";
+                            jtfield.setText(Double.toString(result));
+                            System.out.println("Result = " + result);
+                            break;
+                        }
+                        else { //first iteration when OPERATION
+                            result = value1;
+                            str1 = "";
                             str2 = "";
                             jtfield.setText(Double.toString(result));
                             System.out.println("Result = " + result);
@@ -116,6 +158,7 @@ public class Calculator {
                     case 'C':
                         System.out.println("Button = " + e.getActionCommand());
                         jtfield.setText("0");
+                        result = 0;
                         value1 = 0;
                         value2 = 0;
                         str1 = "";
@@ -124,7 +167,9 @@ public class Calculator {
                         break;
                     default:
                         if (operation == false) {
+                            op = ' ';
                             System.out.println("Button = " + e.getActionCommand());
+                            value2 = 0;
                             str1 += e.getActionCommand();
                             value1 = Double.parseDouble(str1);
                             jtfield.setText(Double.toString(value1));
