@@ -28,16 +28,20 @@ sns.heatmap(ber_data, cmap='hot', cbar_kws={'label': 'BER'}, xticklabels=np.roun
 plt.xlabel('Time Shift')
 plt.ylabel('Amplitude Shift')
 plt.title('Heatmapa BER')
-#plt.show()
-
 
 # Tworzenie wykresu konturowego
 plt.figure(figsize=(10, 8))
-contour_levels = [0.5]
-contour = plt.contour(time_shifts, amplitude_shifts, ber_data, levels=contour_levels, colors='blue')
-plt.clabel(contour, inline=1, fontsize=10)
-plt.xlabel('X')
-plt.ylabel('Y')
+
+# Definicja niestandardowych poziomów konturu
+contour_levels = np.linspace(0.45, 0.5, 11)  # Poziomy od 0.4 do 0.6 z krokiem 0.02
+
+# Tworzenie konturów
+contour = plt.contourf(time_shifts, amplitude_shifts, ber_data, levels=contour_levels, cmap='Blues')
+
+# Opis kolorów
+plt.colorbar(contour, label='BER', orientation='horizontal')
+
+plt.xlabel('Time Shift')
+plt.ylabel('Amplitude Shift')
 plt.title('Kontur - Diagram Oka')
-plt.grid(True)
 plt.show()
